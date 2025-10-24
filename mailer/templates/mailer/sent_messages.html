@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sent Messages | SecureMail</title>
+  <style>
+    body {
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        background: #2A7B9B;
+  background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 99%);
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+  
+      /* Navbar */
+      .navbar {
+          background: #2A7B9B;
+          background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 113, 199, 1) 99%);
+          
+        color: white;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      } 
+
+    .navbar h1 {
+      font-size: 20px;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover {
+      opacity: 0.8;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .message {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .message:hover {
+      transform: translateY(-2px);
+    }
+
+    .subject {
+      font-weight: 600;
+      color: #0d6efd;
+      font-size: 18px;
+    }
+
+    .to {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    small {
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>📬 SecureMail</h1>
+    <div>
+      <a href="{% url 'inbox' %}">Inbox</a>
+      <a href="{% url 'send_message' %}">Send Message</a>
+      <a href="{% url 'sent_messages' %}">Sent Message</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Sent Messages</h2>
+    {% for msg in messages %}
+      <div class="message">
+        <div class="subject">{{ msg.subject }}</div>
+        <div class="to">o: {{ msg.sender.username }}</div>
+        <p class="body">{{ msg.body }}</p>
+        <small>Sent at {{ msg.created_at }}</small>
+      </div>
+    {% empty %}
+      <p>You haven’t sent any messages yet.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>
